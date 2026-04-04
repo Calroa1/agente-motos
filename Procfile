@@ -1,0 +1,1 @@
+worker: npx tsx src/channels/telegram.ts
