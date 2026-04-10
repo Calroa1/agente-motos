@@ -1,15 +1,21 @@
 import { buscarRepuestosTool } from "./buscarRepuestos.js"
+import { buscarSemanticTool } from "./buscarSemantic.js"
+import { consultarSQLTool } from "./consultarSQL.js"
 
-// Aquí registras todas las tools
-export const tools = [buscarRepuestosTool.definition]
+export const tools = [
+    buscarRepuestosTool.definition,
+    buscarSemanticTool.definition,
+    consultarSQLTool.definition
+]
 
-// Mapa para ejecutar la tool correcta por nombre
 const toolMap: Record<string, (args: any) => Promise<any>> = {
-  buscarRepuestos: buscarRepuestosTool.execute
+    buscarRepuestos: buscarRepuestosTool.execute,
+    buscarSemantic: buscarSemanticTool.execute,
+    consultarSQL: consultarSQLTool.execute
 }
 
 export const ejecutarTool = async (nombre: string, argumentos: any) => {
-  const tool = toolMap[nombre]
-  if (!tool) return { error: `Herramienta '${nombre}' no encontrada` }
-  return await tool(argumentos)
+    const tool = toolMap[nombre]
+    if (!tool) return { error: `Herramienta '${nombre}' no encontrada` }
+    return await tool(argumentos)
 }
