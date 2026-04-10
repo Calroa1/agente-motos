@@ -1,3 +1,4 @@
+import "dotenv/config"
 import { generarEmbedding } from "./embeddings.js"
 import { buscarProductos } from "./chromadb.js"
 
@@ -13,5 +14,3 @@ export async function buscarRepuestosSemantic(pregunta: string) {
 
     return productos
 }
-
-// Prueba temporal

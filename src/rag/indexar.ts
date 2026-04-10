@@ -22,7 +22,12 @@ async function indexar() {
     const productosParaGuardar = []
 
     for (const producto of productos) {
-        const texto = `${producto.title}. ${limpiarHtml(producto.body_html)}`
+        const texto = `
+        Tipo de repuesto: ${producto.product_type}
+        Producto: ${producto.title}
+        Marca: ${producto.vendor}
+        Descripción: ${limpiarHtml(producto.body_html)}
+            `.trim()
         const embedding = await generarEmbedding(texto)
 
         productosParaGuardar.push({
@@ -30,9 +35,9 @@ async function indexar() {
             texto,
             embedding,
             metadata: {
+                id: String(producto.id),
                 titulo: producto.title,
-                precio: producto.variants[0].price,
-                url: producto.images?.[0]?.src ?? ""
+            
             }
         })
 
